@@ -18,7 +18,7 @@ var credentials = {
 //GET home route
 proxy_server = httpproxy.createServer({
     target: {
-        host: "localhost",
+        host: "10.128.03",
         port: 9009
     },
     secure: true,
