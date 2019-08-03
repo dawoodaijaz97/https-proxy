@@ -45,7 +45,7 @@ app.get('/', (req, res) => {
     res.send('Hello World.');
 });
 
-var http_server = https.createServer(credentials, app);
+var https_server = https.createServer(credentials, app);
 
 
 https_server.listen(9001, () => {
