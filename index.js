@@ -17,17 +17,14 @@ var credentials = {
 
 //GET home route
 proxy_server = httpproxy.createServer({
-    target: {
-        host: "10.128.03",
-        port: 9009
-    },
+    target: "https://10.128.0.3:9001",
     secure: true,
     ssl: {
         key: key,
         cert: cert2
     }
-}).listen(8009, function() {
-    console.log("Proxy Running")
+}).listen(443, function() {
+    console.log("Proxy Running : 443")
 })
 
 app.use(function(req, res) {
@@ -48,9 +45,9 @@ app.get('/', (req, res) => {
     res.send('Hello World.');
 });
 
-var http_server = http.createServer(app);
+var http_server = https.createServer(credentials, app);
 
 
-http_server.listen(9001, () => {
+https_server.listen(9001, () => {
     console.log("Https server listing on port : 9001")
 });
