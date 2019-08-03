@@ -5,9 +5,9 @@ const http = require("http")
 const httpproxy = require("http-proxy")
 app = express()
 
-var cert = fs.readFileSync(__dirname + '../../../etc/letsencrypt/live/instance2mymachines.xyz/fullchain.pem', "utf-8");
-var cert2 = fs.readFileSync(__dirname + '../../../etc/letsencrypt/live/instance2mymachines.xyz/fullchain.pem', "utf-8");
-var key = fs.readFileSync(__dirname + '../../../etc/letsencrypt/live/instance2mymachines.xyz/fullchain.pem', "utf-8")
+var cert = fs.readFileSync("/etc/letsencrypt/live/instance2mymachines.xyz/fullchain.pem", "utf-8");
+var cert2 = fs.readFileSync("/etc/letsencrypt/live/instance2mymachines.xyz/fullchain.pem", "utf-8");
+var key = fs.readFileSync("/etc/letsencrypt/live/instance2mymachines.xyz/fullchain.pem", "utf-8")
 
 
 var credentials = {
