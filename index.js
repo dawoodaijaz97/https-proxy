@@ -19,14 +19,16 @@ var credentials = {
 
 //GET home route
 proxy_server = httpproxy.createServer({
-    target: "https://10.128.0.3:9001",
-    secure: true,
-    ssl: {
-        key: key,
-        cert: cert2
-    }
-}).listen(443, function() {
-    console.log("Proxy Running : 443")
+    target: {
+        protocol: "https",
+        host: "www.instance2mymachines.com",
+        port: 443,
+        pfx: fs.readFileSync("/etc/letsencrypt/live/instance2mymachines.xyz/cert_key.p12"),
+        passphrase: "google"
+    },
+    changeOrigin: true
+}).listen(8000, function() {
+    console.log("Proxy Running : 8000")
 })
 
 app.use(function(req, res) {
@@ -50,6 +52,6 @@ app.get('/', (req, res) => {
 var https_server = https.createServer(credentials, app);
 
 
-https_server.listen(9001, () => {
-    console.log("Https server listing on port : 9001")
+https_server.listen(443, () => {
+    console.log("Https server listing on port : 443")
 });
