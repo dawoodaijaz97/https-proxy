@@ -6,8 +6,8 @@ const httpproxy = require("http-proxy")
 app = express()
 
 var cert = fs.readFileSync(__dirname + "/certsFiles/NewCert.pfx", "utf-8");
-var cert2 = fs.readFileSync("/etc/letsencrypt/live/instance2mymachines.xyz/cert.pem", "utf-8");
-var key = fs.readFileSync("/etc/letsencrypt/live/instance2mymachines.xyz/privkey.pem", "utf-8")
+var cert2 = fs.readFileSync("/etc/letsencrypt/live/instance2mymachines.xyz/cert.pem");
+var key = fs.readFileSync("/etc/letsencrypt/live/instance2mymachines.xyz/privkey.pem")
 console.log(cert2)
 console.log(key)
 
