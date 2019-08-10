@@ -12,7 +12,7 @@ var key = fs.readFileSync("/etc/letsencrypt/live/instance2mymachines.xyz/privkey
 console.log(cert2)
 console.log(key)
 
-
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = false
 
 //GET home route
 proxy_server = httpproxy.createServer({
