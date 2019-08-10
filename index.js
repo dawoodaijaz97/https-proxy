@@ -16,7 +16,7 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = false
 
 //GET home route
 proxy_server = httpproxy.createServer({
-    target: "https://www.instance2mymachines.xyz:9010",
+    target: "https://instance2mymachines.xyz:9010",
     secure: true,
     ssl: {
         key: key,
