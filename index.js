@@ -3,33 +3,27 @@ const https = require('https');
 const fs = require('fs');
 const http = require("http")
 const httpproxy = require("http-proxy")
+let Greenlock = require("greenlock-express");
 app = express()
 
-var cert = fs.readFileSync(__dirname + "/certsFiles/NewCert.pfx", "utf-8");
 var cert2 = fs.readFileSync(__dirname + "/certsFiles/selfsigned.crt", 'utf8')
 var key = fs.readFileSync(__dirname + "/certsFiles/selfsigned.key", 'utf8')
 
 console.log(cert2)
 console.log(key)
 
-var credentials = {
-    pfx: cert,
-    passphrase: "google"
 
-};
 
 //GET home route
 proxy_server = httpproxy.createServer({
-    target: {
-        protocol: "https",
-        host: "www.instance2mymachines.com",
-        port: 443,
-        pfx: fs.readFileSync("/etc/letsencrypt/live/instance2mymachines.xyz/cert_key.p12"),
-        passphrase: "google"
-    },
-    changeOrigin: true
-}).listen(8000, function() {
-    console.log("Proxy Running : 8000")
+    target: "https://10.128.0.3:9010",
+    secure: true,
+    ssl: {
+        key: key,
+        cert: cert2
+    }
+}).listen(443, function() {
+    console.log("Proxy Running : 443")
 })
 
 app.use(function(req, res) {
@@ -50,9 +44,20 @@ app.get('/', (req, res) => {
     res.send('Hello World.');
 });
 
-var https_server = https.createServer(credentials, app);
 
-
-https_server.listen(443, () => {
-    console.log("Https server listing on port : 443")
-});
+Greenlock.create({
+        email: "dawood.aijaz97@gmail.com", // The email address of the ACME user / hosting provider
+        agreeTos: true, // You must accept the ToS as the host which handles the certs
+        configDir: "~/.config/acme/", // Writable directory where certs will be saved
+        communityMember: true, // Join the community to get notified of important updates
+        telemetry: true, // Contribute telemetry data to the project
+        approvedDomains: ["instance2mymachines.xyz", "www.instance2mymachines.xyz"],
+        // Using your express app:
+        // simply export it as-is, then include it here
+        app: app,
+        server: "https://acme-v02.api.letsencrypt.org/directory",
+        //, debug: true
+    })
+    .listen(80, 9010, function() {
+        console.log("GreenLock HTTPS server running on port 9010")
+    });

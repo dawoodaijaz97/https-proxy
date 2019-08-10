@@ -26,6 +26,7 @@
   "dependencies": {
     "express": "^4.16.4",
     "fs": "0.0.1-security",
+    "greenlock-express": "^2.7.12",
     "http": "0.0.0",
     "http-proxy": "^1.17.0",
     "https": "^1.0.0"
