@@ -27,7 +27,7 @@ proxy_server = httpproxy.createServer({
 })
 
 app.use(function(req, res) {
-
+    console.log("Inside HTTPS Server")
     console.log(JSON.stringify(req.headers.host))
     host = req.hostname
     console.log(host)
