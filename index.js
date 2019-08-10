@@ -26,18 +26,19 @@ proxy_server = httpproxy.createServer({
     console.log("Proxy Running : 443")
 })
 
-app.use(function(req, res) {
+app.use(function(req, res, next) {
 
     console.log(JSON.stringify(req.headers.host))
-    host = req.hostname
-    console.log(host)
-    try {
-        proxy_server.web(req, res, {
-            target: "https://" + req.hostname
-        });
-    } catch (e) {
-        console.error(e)
-    }
+        // host = req.hostname
+        // console.log(host)
+        // try {
+        //     proxy_server.web(req, res, {
+        //         target: "https://" + req.hostname
+        //     });
+        // } catch (e) {
+        //     console.error(e)
+        // }
+    next();
 });
 
 app.get('/', (req, res) => {
