@@ -16,7 +16,7 @@ console.log(key)
 
 //GET home route
 proxy_server = httpproxy.createServer({
-    target: "https://instance2mymachines.xyz:9010",
+    target: "instance2mymachines.xyz:9010",
     secure: true,
     ssl: {
         key: key,
