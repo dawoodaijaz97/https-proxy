@@ -16,7 +16,7 @@ console.log(key)
 
 //GET home route
 proxy_server = httpproxy.createServer({
-    target: "https://10.128.0.3:9010",
+    target: "https://localhost:9010",
     secure: true,
     ssl: {
         key: key,
