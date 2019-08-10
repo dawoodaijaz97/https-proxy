@@ -4,8 +4,8 @@ var fs = require('fs'),
 
 var options = {
     https: {
-        key: fs.readFileSync('/etc/letsencrypt/live/instance2mymachines.xyz/privkey.pem', 'utf8'),
-        cert: fs.readFileSync('/etc/letsencrypt/live/instance2mymachines.xyz/cert.pem', 'utf8')
+        key: fs.readFileSync(__dirname + "/certsFiles/selfsigned.crt", 'utf8'),
+        cert: fs.readFileSync(__dirname + "/certsFiles/selfsigned.key", 'utf8')
     },
     target: {
         https: true // This could also be an Object with key and cert properties
