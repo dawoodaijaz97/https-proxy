@@ -1,4 +1,4 @@
-const expreapp = express() = require('express');
+const express = require('express');
 app = express()
 app.use(function(req, res) {
     console.log("Inside HTTPS Server")
