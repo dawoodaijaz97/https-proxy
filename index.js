@@ -55,6 +55,7 @@ Greenlock.create({
         // Using your express app:
         // simply export it as-is, then include it here
         app: app,
+        store: require('greenlock-store-fs'),
         server: "https://acme-v02.api.letsencrypt.org/directory",
         //, debug: true
     })
