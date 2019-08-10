@@ -25,6 +25,10 @@ proxy_server = httpproxy.createServer({
 }).listen(443, function() {
     console.log("Proxy Running : 443")
 })
+proxy_server.on('proxyRes', function(proxyRes, req, res) {
+    console.log('RAW Response from the target', JSON.stringify(proxyRes.headers, true, 2));
+});
+
 
 app.use(function(req, res) {
     console.log("Inside HTTPS Server")
