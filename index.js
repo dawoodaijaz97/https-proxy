@@ -6,8 +6,8 @@ const httpproxy = require("http-proxy")
 let Greenlock = require("greenlock-express");
 app = express()
 
-var cert2 = fs.readFileSync(__dirname + "/certsFiles/selfsigned.crt", 'utf8')
-var key = fs.readFileSync(__dirname + "/certsFiles/selfsigned.key", 'utf8')
+var cert2 = fs.readFileSync("/etc/letsencrypt/live/instance2mymachines.xyz/fullchain.pem", 'utf8')
+var key = fs.readFileSync("/etc/letsencrypt/live/instance2mymachines.xyz/privkey.pem", 'utf8')
 
 console.log(cert2)
 console.log(key)
