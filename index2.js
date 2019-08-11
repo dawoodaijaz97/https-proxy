@@ -42,4 +42,6 @@ proxy_server.on('open', function(proxySocket) {
 
 https_server = https.createServer(options, app)
 
-https_server.listen(9010)
+https_server.listen(9010, function() {
+    console.log("Https simple server running on port 9010")
+})
