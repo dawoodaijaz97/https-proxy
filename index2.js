@@ -17,7 +17,7 @@ let options = {
 //GET home route
 proxy_server = httpproxy.createServer({
     target: "https://localhost:9010",
-    secure: true,
+    secure: false,
     ssl: {
         key: key,
         cert: cert
