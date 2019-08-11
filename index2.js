@@ -20,7 +20,7 @@ proxy_server = httpproxy.createServer({
     secure: true,
     ssl: {
         key: key,
-        cert: cert2
+        cert: cert
     }
 }).listen(443, function() {
     console.log("Proxy Running : 443")
