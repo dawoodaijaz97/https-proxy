@@ -3,7 +3,8 @@ const fs = require('fs');
 const http = require("http")
 const httpproxy = require("http-proxy")
 let Greenlock = require("greenlock-express");
-app = require("./app")
+const express = require('express');
+app = express()
 
 var cert = fs.readFileSync("/etc/letsencrypt/live/instance2mymachines.xyz/fullchain.pem", 'utf8')
 var key = fs.readFileSync("/etc/letsencrypt/live/instance2mymachines.xyz/privkey.pem", 'utf8')
@@ -22,8 +23,11 @@ proxy_server = httpproxy.createServer({
         key: key,
         cert: cert
     }
-}).listen(443, function() {
-    console.log("Proxy Running : 443")
+});
+
+
+proxy_server.listen(443, function() {
+    console.log("Proxy server running on port 443")
 })
 proxy_server.on('proxyRes', function(proxyRes, req, res) {
     console.log('RAW Response from the target', JSON.stringify(proxyRes.headers, true, 2));
@@ -37,6 +41,26 @@ proxy_server.on('error', function(err, req, res) {
 proxy_server.on('open', function(proxySocket) {
     // listen for messages coming FROM the target here
     proxySocket.on('data', hybiParseAndLogMessage);
+});
+
+
+
+app.use(function(req, res) {
+    console.log("Inside HTTPS Server")
+    console.log(JSON.stringify(req.headers.host))
+    host = req.hostname
+    console.log(host)
+    try {
+        proxy_server.web(req, res, {
+            target: "https://" + req.hostname,
+        });
+    } catch (e) {
+        console.error(e)
+    }
+});
+
+app.get('/', (req, res) => {
+    res.send('Hello World.');
 });
 
 
