@@ -10,8 +10,8 @@ var cert2 = fs.readFileSync(__dirname + "/certsFiles/selfsigned.crt", 'utf8')
 var key2 = fs.readFileSync(__dirname + "/certsFiles/selfsigned.key", 'utf8')
 
 let options = {
-    key: key2,
-    cert: cert2
+    key: key,
+    cert: cert
 }
 
 
