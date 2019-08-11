@@ -27,8 +27,8 @@ proxy_server = httpproxy.createServer({
 });
 
 
-proxy_server.listen(443, function() {
-    console.log("Proxy server running on port 443")
+proxy_server.listen(9000, function() {
+    console.log("Proxy server running on port 9000")
 })
 proxy_server.on('proxyRes', function(proxyRes, req, res) {
     console.log('RAW Response from the target', JSON.stringify(proxyRes.headers, true, 2));
