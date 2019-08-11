@@ -1,5 +1,7 @@
 const express = require('express');
 app = express()
+
+
 app.use(function(req, res) {
     console.log("Inside HTTPS Server")
     console.log(JSON.stringify(req.headers.host))
