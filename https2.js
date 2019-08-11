@@ -9,7 +9,6 @@ app = express()
 var cert = fs.readFileSync("/etc/letsencrypt/live/instance2mymachines.xyz/fullchain.pem", 'utf8')
 var key = fs.readFileSync("/etc/letsencrypt/live/instance2mymachines.xyz/privkey.pem", 'utf8')
 
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = false
 let options = {
     key: key,
     cert: cert
@@ -28,8 +27,8 @@ proxy_server = httpproxy.createServer({
 });
 
 
-proxy_server.listen(443, function() {
-    console.log("Proxy server running on port 443")
+proxy_server.listen(9000, function() {
+    console.log("Proxy server running on port 9000")
 })
 
 
