@@ -1,44 +1,45 @@
-var fs = require('fs'),
-    https = require('https'),
-    httpProxy = require('http-proxy');
+const https = require('https');
+const fs = require('fs');
+const http = require("http")
+const httpproxy = require("http-proxy")
+let Greenlock = require("greenlock-express");
+app = require("./app")
 
-var options = {
-    https: {
-        key: fs.readFileSync(__dirname + "/certsFiles/selfsigned.crt", 'utf8'),
-        cert: fs.readFileSync(__dirname + "/certsFiles/selfsigned.key", 'utf8')
-    },
-    target: {
-        https: true // This could also be an Object with key and cert properties
+var cert = fs.readFileSync("/etc/letsencrypt/live/instance2mymachines.xyz/fullchain.pem", 'utf8')
+var key = fs.readFileSync("/etc/letsencrypt/live/instance2mymachines.xyz/privkey.pem", 'utf8')
+
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = false
+let options = {
+    key: key,
+    cert: cert
+}
+
+//GET home route
+proxy_server = httpproxy.createServer({
+    target: "https://localhost:9010",
+    secure: true,
+    ssl: {
+        key: key,
+        cert: cert2
     }
-};
-
-//
-// Create a standalone HTTPS proxy server
-//
-httpProxy.createServer(8000, 'localhost', options).listen(8001);
-
-//
-// Create an instance of HttpProxy to use with another HTTPS server
-//
-var proxy = new httpProxy.HttpProxy({
-    target: {
-        host: 'localhost',
-        port: 8000,
-        https: true
-    }
+}).listen(443, function() {
+    console.log("Proxy Running : 443")
+})
+proxy_server.on('proxyRes', function(proxyRes, req, res) {
+    console.log('RAW Response from the target', JSON.stringify(proxyRes.headers, true, 2));
 });
 
-https.createServer(options.https, function(req, res) {
-    proxy.proxyRequest(req, res);
-}).listen(8002);
-
-//
-// Create the target HTTPS server for both cases
-//
-https.createServer(options.https, function(req, res) {
-    res.writeHead(200, {
+proxy_server.on('error', function(err, req, res) {
+    res.writeHead(500, {
         'Content-Type': 'text/plain'
-    });
-    res.write('hello https\n');
-    res.end();
-}).listen(8000);
+    })
+})
+proxy_server.on('open', function(proxySocket) {
+    // listen for messages coming FROM the target here
+    proxySocket.on('data', hybiParseAndLogMessage);
+});
+
+
+https_server = https.createServer(options, app)
+
+https_server.listen(9010)
