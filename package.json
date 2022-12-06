@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/sagardere/set-up-SSL-in-nodejs#readme",
   "dependencies": {
-    "express": "^4.16.4",
+    "express": "^4.18.2",
     "fs": "0.0.1-security",
     "greenlock-express": "^2.7.12",
     "greenlock-store-fs": "^3.0.2",
